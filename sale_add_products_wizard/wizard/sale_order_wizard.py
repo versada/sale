@@ -29,14 +29,11 @@ class sale_order_add_multiple(models.TransientModel):
                 qty=self.quantity,
                 uom=product_id.uom_id.id,
                 partner_id=sale.partner_id.id)
-            val = {
-                'name': product['value'].get('name'),
+            val = product['value']
+            val.update({
                 'product_uom_qty': self.quantity,
                 'order_id': active_id,
                 'product_id': product_id.id or False,
                 'product_uom': product_id.uom_id.id,
-                'price_unit': product['value'].get('price_unit'),
-                'tax_id': [(6, 0, product['value'].get('tax_id'))],
-                'discount': product['value'].get('discount', 0),
-            }
+            })
             self.env['sale.order.line'].create(val)

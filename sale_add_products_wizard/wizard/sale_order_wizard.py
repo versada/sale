@@ -35,5 +35,6 @@ class sale_order_add_multiple(models.TransientModel):
                 'order_id': active_id,
                 'product_id': product_id.id or False,
                 'product_uom': product_id.uom_id.id,
+                'tax_id': [(6, 0, val.get('tax_id'))],
             })
             self.env['sale.order.line'].create(val)
